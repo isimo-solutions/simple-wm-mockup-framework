@@ -6,7 +6,7 @@
   <name>Simple webMethods Mockup Framework</name>
   <description>Simple webMethods Mockup Framework</description>
   <properties>
-  	<wm.home>C:/SoftwareAG/webMethods99</wm.home>
+  	<wm.home>F:/SoftwareAG103</wm.home>
   	<maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
