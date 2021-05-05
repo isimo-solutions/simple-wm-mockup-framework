@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.isimo</groupId>
+  <artifactId>simple-wm-mockup-framework</artifactId>
+  <version>0.9-SNAPSHOT</version>
+  <name>Simple webMethods Mockup Framework</name>
+  <description>Simple webMethods Mockup Framework</description>
+  <properties>
+  	<wm.home>C:/SoftwareAG/webMethods99</wm.home>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <dependencies>
+  	<dependency>
+  	  <groupId>com.webmethods</groupId>
+        <artifactId>wm-isclient</artifactId>
+        <version>any</version>
+        <scope>system</scope>
+        <systemPath>${wm.home}/common/lib/wm-isclient.jar</systemPath>
+  	</dependency>
+  	<dependency>
+  	  <groupId>com.webmethods</groupId>
+        <artifactId>wm-isserver</artifactId>
+        <version>any</version>
+        <scope>system</scope>
+        <systemPath>${wm.home}/IntegrationServer/lib/wm-isserver.jar</systemPath>
+  	</dependency>
+  </dependencies>
+</project>
