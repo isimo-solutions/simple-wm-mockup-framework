@@ -1,13 +1,15 @@
 # simple-wm-mockup-framework
 
-This framework enables simple mocking of webMethods services by replacing them with other implementations using naming conventions dependent on the list of profiles. This is a very simple and powerful tool allowing one to provide mockups for external systems and to test webMethods solutions in separation.
+This framework allows for [simple mocking](#Mocking) of webMethods services by replacing them with other implementations using naming conventions dependent on the list of profiles. This is a very simple and powerful tool allowing one to provide mockups for external systems and to test webMethods solutions in separation.
+
+Additionally the framework provides the possibility to [record service calls](#Recording).
 
 This simple webMethods Mockup framework can be installed as invoke manager entry inside of the invokemanager.cnf config file.
 
 ## Building the framework
 In order to build the framework the system environment variable MOCKUPBUILDWMHOME must be set to an exisiting webMethods home directory. After that setting standard maven build can be started. Framework should be compatibie with any working webMethods Integration Server installation.
 
-## Service Mocking
+## <div id='Mocking'/>Service Mocking
 
 ### Configuration on the Integration Server
 - stop IS
@@ -41,7 +43,7 @@ If the given testing profile is on the list then the implemented extension will 
 
 If the mockup can't be found for any of the declared profiles, then the actual service will be called.
 
-## Recording Service Calls
+## <div id='Recording'/>Recording Service Calls
 
 ### Configuration on the Integration Server
 - stop IS
