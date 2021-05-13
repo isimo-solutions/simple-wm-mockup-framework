@@ -44,10 +44,6 @@ public class RecordingInterceptor extends InterceptorBase implements InvokeChain
 	public RecordingInterceptor(String recordingConfig) {
 		log("Recording Interceptor initialized");
 		this.recordingConfigFile = new File(recordingConfig);
-		File recordingDir = new File(RECORDING_DIR);
-		if(!recordingDir.mkdirs()) {
-			log("Directory "+recordingDir+" has not been created successfully");
-		}
 	}
 	
 	void readRecordingConfig() {
@@ -65,15 +61,32 @@ public class RecordingInterceptor extends InterceptorBase implements InvokeChain
 					FILENAMEFORMAT = Config.getProperty("%SERVICE%_%TIMESTAMP%_%SEQUENCE%_%INOUT%.xml","watt.server.recordinginterceptor.filenameformat");
 					tpattern = new SimpleDateFormat(TIMESTAMPFORMAT);
 					nformat = new DecimalFormat("0000000");
+					File recordingDir = new File(RECORDING_DIR);
+					lastconfigread = recordingConfigFile.lastModified();
+					patterns = recordingConfig.pattern.stream().map(p -> compileSafe(p)).collect(Collectors.toList());
+
+					if(!recordingDir.exists()) {
+						if(!recordingDir.mkdirs()) {
+							log("Directory "+recordingDir+" has not been created successfully");
+						}
+					}
 				} catch(Exception e) {
 					log("Problems initializing recording config: "+e.getMessage());
 					emptyRecording();
 				}
 			}
-			patterns = recordingConfig.pattern.stream().map(p -> Pattern.compile(p)).collect(Collectors.toList());
 		} catch(Exception e) {
 			log("Problems reading recording config file: "+e.getMessage());
 			emptyRecording();
+		}
+	}
+	
+	Pattern compileSafe(String pattern) {
+		try {
+			return Pattern.compile(pattern);
+		} catch(Exception e) {
+			log("Pattern "+pattern+" not accepted: "+e.getMessage());
+			return null;
 		}
 	}
 	
@@ -84,14 +97,14 @@ public class RecordingInterceptor extends InterceptorBase implements InvokeChain
 	
 	public void process(Iterator chain, BaseService service, IData pipeline,
 			ServiceStatus status) throws ServerException {
-		synchronized (this) {
-			sequence++;
-		}
 		readRecordingConfig();
 		boolean record = serviceNameMatches(service);
 		Date serviceStarted = new Date();
 		
 		if(record) {
+			synchronized (this) {
+				sequence++;
+			}
 			writePipelineToFile(getInputPipelineFile(service,serviceStarted), pipeline);
 		}
 		continueToNext(chain, service, pipeline, status);
@@ -114,6 +127,7 @@ public class RecordingInterceptor extends InterceptorBase implements InvokeChain
 		filename = filename.replaceAll("%TIMESTAMP%", tpattern.format(serviceStarted));
 		filename = filename.replaceAll("%SEQUENCE%", nformat.format(sequence));
 		filename = filename.replaceAll("%INOUT%", inout.name());
+		filename = filename.replace(':', '.');
 		return new File(RECORDING_DIR+File.separator+filename);
 	}
 	
@@ -128,6 +142,8 @@ public class RecordingInterceptor extends InterceptorBase implements InvokeChain
 	boolean serviceNameMatches(BaseService service) {
 		String name = service.getNSName().getFullName();
 		for(Pattern pattern: patterns) {
+			if(pattern==null)
+				continue;
 			if(pattern.matcher(name).matches())
 				return true;
 		}
