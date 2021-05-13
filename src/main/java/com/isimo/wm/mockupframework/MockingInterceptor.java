@@ -3,25 +3,21 @@ package com.isimo.wm.mockupframework;
 import java.util.Iterator;
 
 import com.wm.app.b2b.server.BaseService;
-import com.wm.app.b2b.server.Server;
 import com.wm.app.b2b.server.invoke.InvokeChainProcessor;
 import com.wm.app.b2b.server.invoke.ServiceStatus;
 import com.wm.data.IData;
 import com.wm.lang.ns.NSName;
 import com.wm.lang.ns.NSNode;
 import com.wm.lang.ns.NSService;
-import com.wm.lang.ns.NSType;
 import com.wm.lang.ns.Namespace;
 import com.wm.util.Config;
-import com.wm.util.JournalLogger;
 import com.wm.util.ServerException;
 
-public class MockingInterceptor implements InvokeChainProcessor {	
+public class MockingInterceptor extends InterceptorBase implements InvokeChainProcessor {	
 	public MockingInterceptor() {
 		log("Mocking Interceptor initialized");
 	}
 	
-	static NSType SERVICE_TYPE = NSType.create("Service");
 	public void process(Iterator chain, BaseService service, IData pipeline,
 			ServiceStatus status) throws ServerException {
 		// read the invoke manager extended setting
@@ -48,15 +44,5 @@ public class MockingInterceptor implements InvokeChainProcessor {
 	NSName fromBaseName(NSName baseName, String profile) {
 		NSName retval = NSName.create(baseName.getInterfaceName()+".mockup_"+profile, baseName.getNodeName().toString());
 		return retval;
-	}
-	
-	static void log(String msg) {
-		JournalLogger.log(3, 90, JournalLogger.INFO, msg);
-	}
-	
-	void continueToNext(Iterator chain, BaseService service, IData pipeline,
-			ServiceStatus status) throws ServerException {
-		if (chain.hasNext())
-			((InvokeChainProcessor)chain.next()).process(chain, service, pipeline, status);
 	}
 }
