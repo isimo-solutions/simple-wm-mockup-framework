@@ -63,15 +63,6 @@ If the mockup can't be found for any of the declared profiles, then the actual s
 - start IS
 - create the file WMHOME/IntegrationServer/instances/default/config/recordingconfig.xml with the following content:
 
-Additionally the following IS Extended Settings can be set to customize the framework:
-
-|Extended Setting|Description|Default Value|
-|------|------|-----|
-|watt.server.recordinginterceptor.config|Location of the recordingconfig.xml file|config/recordingconfig.xml|
-|watt.server.recordinginterceptor.pipelinesdir|Location of the directory where recorded pipelines will be stored|pipeline/recording|
-|watt.server.recordinginterceptor.config|Location of the recordingconfig.xml file|pipeline/recording|
-|watt.server.recordinginterceptor.timestampformat|Timestamp format (as defined by Java SimpleDateFormat class)|yyyyMMdd_HHmmssSSS|
-|watt.server.recordinginterceptor.filenameformat|Service name pattern where %SERVICE% is the service name, %TIMESTAMP% is the current timestamp, %SEQUENCE% is the unique sequence number with leadingzeros, %INOUT% is ('IN' for input pipeline and 'OUT' for output pipeline respectively| %SERVICE%\_%TIMESTAMP%\_%SEQUENCE%\_%INOUT%.xml|
 
 ### recordingconfig.xml file
 
@@ -91,4 +82,14 @@ This file defines which services should be recorded.
 
 This file can be modified when IS is running, there's no need to restart the server - changes to this file will be picked up automatically.
 
+### Recording customization
 
+Additionally the following IS Extended Settings can be set to customize the framework:
+
+|Extended Setting|Description|Default Value|
+|------|------|-----|
+|watt.server.recordinginterceptor.config|Location of the recordingconfig.xml file|config/recordingconfig.xml|
+|watt.server.recordinginterceptor.pipelinesdir|Location of the directory where recorded pipelines will be stored|pipeline/recording|
+|watt.server.recordinginterceptor.config|Location of the recordingconfig.xml file|pipeline/recording|
+|watt.server.recordinginterceptor.timestampformat|Timestamp format (as defined by Java SimpleDateFormat class)|yyyyMMdd_HHmmssSSS|
+|watt.server.recordinginterceptor.filenameformat|Service name pattern where %SERVICE% is the service name, %TIMESTAMP% is the current timestamp, %SEQUENCE% is the unique sequence number with leadingzeros, %INOUT% is ('IN' for input pipeline and 'OUT' for output pipeline respectively| %SERVICE%\_%TIMESTAMP%\_%SEQUENCE%\_%INOUT%.xml|
