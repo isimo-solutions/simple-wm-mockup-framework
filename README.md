@@ -69,7 +69,7 @@ Additionally the following IS Extended Settings can be set to customize the fram
 |watt.server.recordinginterceptor.pipelinesdir|Location of the directory where recorded pipelines will be stored|pipeline/recording|
 |watt.server.recordinginterceptor.config|Location of the recordingconfig.xml file|pipeline/recording|
 |watt.server.recordinginterceptor.timestampformat|Timestamp format (as defined by Java SimpleDateFormat class)|yyyyMMdd_HHmmssSSS|
-|watt.server.recordinginterceptor.filenameformat|Service name pattern where %SERVICE% is the service name, %TIMESTAMP% is the current timestamp, %SEQUENCE% is the unique sequence number with leadingzeros, %INOUT% is ('IN' for input pipeline and 'OUT' for output pipeline respectively| %SERVICE%_%TIMESTAMP%_%SEQUENCE%_%INOUT%.xml|
+|watt.server.recordinginterceptor.filenameformat|Service name pattern where %SERVICE% is the service name, %TIMESTAMP% is the current timestamp, %SEQUENCE% is the unique sequence number with leadingzeros, %INOUT% is ('IN' for input pipeline and 'OUT' for output pipeline respectively| %SERVICE%\_%TIMESTAMP%\_%SEQUENCE%\_%INOUT%.xml|
 
 ### recordingconfig.xml file
 
