@@ -26,5 +26,12 @@
         <scope>system</scope>
         <systemPath>${wm.home}/IntegrationServer/lib/wm-isserver.jar</systemPath>
   	</dependency>
+	<dependency>
+  	  <groupId>com.webmethods</groupId>
+        <artifactId>wmart</artifactId>
+        <version>any</version>
+        <scope>system</scope>
+        <systemPath>${wm.home}/IntegrationServer/instances/default/packages/WmART/code/jars/wmart.jar</systemPath>
+  	</dependency>
   </dependencies>
 </project>
